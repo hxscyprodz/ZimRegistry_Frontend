@@ -13,11 +13,13 @@ designed to be swapped for real REST endpoints with minimal changes.
 ### Local Development
 
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
-Then open the printed local URL. `npm run build` produces a production build in `dist/`.
+*(or `npm install && npm run dev`)*
+
+Then open the printed local URL. `bun run build` produces a production build in `dist/`.
 
 ### Run with Docker
 
