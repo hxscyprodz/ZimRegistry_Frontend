@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "https://zimreg-backend-1.onrender.com/api/:match*"
+    }
+  ]
+}

@@ -38,7 +38,7 @@ export async function apiRequest<T>(
 ): Promise<T> {
   let response: Response;
   try {
-    response = await fetch(`${API_BASE_URL}${path}`, {
+    response = await fetch(`${path}`, {
       ...init,
       credentials: "include",
       headers: {
