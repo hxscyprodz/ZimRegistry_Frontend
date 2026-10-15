@@ -10,12 +10,34 @@ designed to be swapped for real REST endpoints with minimal changes.
 
 ## Run it
 
+### Local Development
+
 ```bash
 npm install
 npm run dev
 ```
 
 Then open the printed local URL. `npm run build` produces a production build in `dist/`.
+
+### Run with Docker
+
+Build and run using Docker Compose:
+
+```bash
+docker compose up -d --build
+```
+
+The portal will be accessible at `http://localhost:3000`.
+
+Alternatively, build and run directly with Docker:
+
+```bash
+# 1. Build the image
+docker build -t zimregistry-frontend .
+
+# 2. Run the container
+docker run -d -p 3000:80 --name zimregistry_frontend zimregistry-frontend
+```
 
 ## What's implemented
 
