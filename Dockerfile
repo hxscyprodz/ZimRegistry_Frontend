@@ -1,14 +1,14 @@
-# Multi-stage Dockerfile for ZimRegistry Citizen Portal
+# Multi-stage Dockerfile for ZimRegistry Citizen Portal (Bun)
 # =======================================================
 
-# Stage 1: Build the Vite production bundle
-FROM node:22-alpine AS builder
+# Stage 1: Build the Vite production bundle using Bun
+FROM oven/bun:1-alpine AS builder
 
 WORKDIR /app
 
-# Install dependencies (utilizing Docker layer caching)
-COPY package.json package-lock.json* ./
-RUN npm ci
+# Install dependencies using bun.lock
+COPY package.json bun.lock* ./
+RUN bun install --frozen-lockfile
 
 # Copy application source code
 COPY . .
@@ -30,8 +30,8 @@ ENV VITE_API_BASE_URL=$VITE_API_BASE_URL \
     VITE_ORG_PHONE=$VITE_ORG_PHONE \
     VITE_ORG_EMAIL=$VITE_ORG_EMAIL
 
-# Build production distribution
-RUN npm run build
+# Build production distribution using Bun
+RUN bun run build
 
 # =======================================================
 # Stage 2: Serve with lightweight Nginx web server
