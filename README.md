@@ -21,9 +21,24 @@ bun run dev
 
 Then open the printed local URL. `bun run build` produces a production build in `dist/`.
 
+### Environment Variables
+
+Copy the example environment file and fill in your values:
+
+```bash
+cp .env.example .env
+```
+
+Available variables:
+- `VITE_API_BASE_URL`: Base URL for the backend API (e.g. `https://zimreg-backend-1.onrender.com`). If left empty, API requests default to relative `/api/...`.
+- `VITE_SUPABASE_URL`: Supabase project URL for document storage.
+- `VITE_SUPABASE_ANON_KEY`: Supabase anon key for client-side document uploads.
+- `VITE_SUPABASE_STORAGE_BUCKET`: Storage bucket name (defaults to `application-documents` if omitted).
+- `VITE_ORG_ADDRESS`, `VITE_ORG_PHONE`, `VITE_ORG_EMAIL`: Ministry contact details.
+
 ### Run with Docker
 
-Build and run using Docker Compose:
+Docker Compose automatically reads environment variables from your `.env` file via `env_file: .env`:
 
 ```bash
 docker compose up -d --build
@@ -31,15 +46,21 @@ docker compose up -d --build
 
 The portal will be accessible at `http://localhost:3000`.
 
-Alternatively, build and run directly with Docker:
+Alternatively, build and run directly with Docker passing your `.env` file:
 
 ```bash
-# 1. Build the image
-docker build -t zimregistry-frontend .
+# 1. Build the image with build args from your environment
+docker build --build-arg-file .env -t zimregistry-frontend .
 
 # 2. Run the container
 docker run -d -p 3000:80 --name zimregistry_frontend zimregistry-frontend
 ```
+
+### Deploying to Vercel
+
+1. Import this repository in Vercel as a Vite project.
+2. Under **Project Settings → Environment Variables**, add your environment variables (from `.env.example`).
+3. Deploy! The included `vercel.json` ensures both API proxy rewrites and SPA fallback routing for client-side pages work seamlessly.
 
 ## What's implemented
 

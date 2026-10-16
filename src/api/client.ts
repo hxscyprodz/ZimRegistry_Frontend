@@ -37,8 +37,10 @@ export async function apiRequest<T>(
   init?: RequestInit,
 ): Promise<T> {
   let response: Response;
+  const baseUrl = API_BASE_URL ? API_BASE_URL.replace(/\/$/, '') : '';
+  const url = path.startsWith('http') ? path : `${baseUrl}${path}`;
   try {
-    response = await fetch(`${path}`, {
+    response = await fetch(url, {
       ...init,
       credentials: "include",
       headers: {
